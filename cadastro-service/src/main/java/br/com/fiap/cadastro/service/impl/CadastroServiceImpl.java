@@ -1,7 +1,7 @@
 package br.com.fiap.cadastro.service.impl;
 
-import br.com.fiap.cadastro.domain.usuario.dto.CadastroDTO;
 import br.com.fiap.cadastro.domain.usuario.Usuario;
+import br.com.fiap.cadastro.domain.usuario.dto.CadastroDTO;
 import br.com.fiap.cadastro.repository.CadastroRepository;
 import br.com.fiap.cadastro.service.CadastroService;
 import lombok.RequiredArgsConstructor;
