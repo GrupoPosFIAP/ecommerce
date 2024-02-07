@@ -3,9 +3,9 @@ package br.com.fiap.autenticacao.controller;
 
 import br.com.fiap.autenticacao.domain.usuario.dto.AuthenticationDTO;
 import br.com.fiap.autenticacao.domain.usuario.dto.AuthenticationResponseDTO;
-import br.com.fiap.autenticacao.security.service.TokenService;
 import br.com.fiap.rest.configuration.api.domain.usuario.Usuario;
 import br.com.fiap.rest.configuration.api.security.annotations.AuthenticationRequired;
+import br.com.fiap.rest.configuration.api.security.service.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,6 +38,11 @@ public class AuthenticationController {
     public String pathAdmin() {
         return "Path autenticado ADMIN";
     }
+
+    @GetMapping("/qualquer")
+    @AuthenticationRequired
+    public String pathQualquer() { return "abc";}
+
 
     @GetMapping("/default")
     public String pathUser() {

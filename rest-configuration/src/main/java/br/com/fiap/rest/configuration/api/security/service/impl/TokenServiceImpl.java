@@ -1,7 +1,8 @@
-package br.com.fiap.cadastro.security.service.impl;
+package br.com.fiap.rest.configuration.api.security.service.impl;
 
-import br.com.fiap.cadastro.domain.usuario.Usuario;
-import br.com.fiap.cadastro.security.service.TokenService;
+import br.com.fiap.rest.configuration.api.domain.usuario.Usuario;
+import br.com.fiap.rest.configuration.api.exception.InvalidAuthenticationException;
+import br.com.fiap.rest.configuration.api.security.service.TokenService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -36,14 +37,19 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public String validateToken(String token) {
         try {
+
+            if(token == null) {
+                throw new InvalidAuthenticationException();
+            }
+
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
                     .withIssuer("auth-api")
                     .build()
-                    .verify(token)
+                    .verify(token.replace("Bearer ", ""))
                     .getSubject();
         } catch (JWTVerificationException exception) {
-            return "";
+            throw new InvalidAuthenticationException();
         }
     }
 

@@ -1,6 +1,6 @@
 package br.com.fiap.rest.configuration.api.aspect;
 
-import br.com.fiap.rest.configuration.api.security.token.JWTUtils;
+import br.com.fiap.rest.configuration.api.security.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class Aspectful {
 
     @Autowired
-    JWTUtils jwtUtils;
+    TokenService tokenService;
 
     @Around("@annotation(br.com.fiap.rest.configuration.api.security.annotations.AuthenticationRequired)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {

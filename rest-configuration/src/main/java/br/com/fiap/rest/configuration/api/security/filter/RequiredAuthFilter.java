@@ -3,7 +3,7 @@ package br.com.fiap.rest.configuration.api.security.filter;
 import br.com.fiap.rest.configuration.api.exception.GenericMessage;
 import br.com.fiap.rest.configuration.api.exception.InvalidAuthenticationException;
 import br.com.fiap.rest.configuration.api.security.annotations.AuthenticationRequired;
-import br.com.fiap.rest.configuration.api.security.token.JWTUtils;
+import br.com.fiap.rest.configuration.api.security.service.TokenService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -25,7 +25,7 @@ import java.io.IOException;
 public class RequiredAuthFilter extends OncePerRequestFilter {
 
     @Autowired
-    JWTUtils jwtUtils;
+    TokenService tokenService;
 
     @Autowired
     private RequestMappingHandlerMapping reqMap;
@@ -33,7 +33,7 @@ public class RequiredAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            jwtUtils.validateToken(request.getHeader("Authorization"));
+            tokenService.validateToken(request.getHeader("Authorization"));
         } catch (InvalidAuthenticationException invalidAuthenticationException) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
