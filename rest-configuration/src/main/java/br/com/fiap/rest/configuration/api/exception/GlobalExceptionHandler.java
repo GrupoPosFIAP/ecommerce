@@ -3,6 +3,7 @@ package br.com.fiap.rest.configuration.api.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -22,9 +23,8 @@ public class GlobalExceptionHandler {
                 .body(new GenericMessage(exception.getErrorCode(), exception.getErrorMessage()));
     }
 
-    @ExceptionHandler(value = AccessDeniedException.class)
-    public ResponseEntity<GenericMessage> handleAccessDeniedException(AccessDeniedException exception) {
-
+    @ExceptionHandler(value = {AccessDeniedException.class, InternalAuthenticationServiceException.class})
+    public ResponseEntity<GenericMessage> handleAccessDeniedException() {
         return ResponseEntity
                 .status(HttpStatus.FORBIDDEN)
                 .body(new GenericMessage(HttpStatus.FORBIDDEN.name(), "Acesso negado."));
