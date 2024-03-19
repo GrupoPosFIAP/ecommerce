@@ -28,11 +28,11 @@ public class MongoConfig extends AbstractMongoClientConfiguration {
     @Override
     public MongoClient mongoClient() {
         StringBuilder connectionSb = new StringBuilder();
-        connectionSb.append("mongodb://")
-                .append(username).append(":")
-                .append(pass).append("@")
-                .append(host).append(":")
-                .append(port);
+        connectionSb.append("mongodb://localhost:27017/");
+//                .append(username).append(":")
+//                .append(pass).append("@")
+//                .append(host).append(":")
+//                .append(port);
         ConnectionString connectionString = new ConnectionString(connectionSb.toString());
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
                 .applyConnectionString(connectionString)
