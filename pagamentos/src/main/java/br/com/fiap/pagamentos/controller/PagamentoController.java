@@ -1,6 +1,5 @@
 package br.com.fiap.pagamentos.controller;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.pagamentos.dto.PagamentoDto;
 import br.com.fiap.pagamentos.service.PagamentoService;
-import br.com.fiap.rest.configuration.api.security.annotations.AuthenticationRequired;
 import lombok.Data;
 
 @Data
@@ -23,20 +21,14 @@ public class PagamentoController {
     private final PagamentoService pagamentoService;
     
     @PostMapping
-    @AuthenticationRequired
+    // @AuthenticationRequired
     public PagamentoDto executePayment(@RequestBody PagamentoDto paymentDto) {
         return pagamentoService.executePayment(paymentDto);
     }
 
     @GetMapping("/{id}")
-    @AuthenticationRequired
+    // @AuthenticationRequired
     public PagamentoDto findById(@PathVariable UUID id) {
         return pagamentoService.findById(id);
-    }
-
-    @GetMapping
-    @AuthenticationRequired
-    public List<PagamentoDto> search(@RequestBody PagamentoDto paymentDto) {
-        return pagamentoService.search(paymentDto);
     }
 }

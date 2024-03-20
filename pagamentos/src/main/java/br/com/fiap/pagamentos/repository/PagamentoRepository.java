@@ -9,5 +9,4 @@ import br.com.fiap.pagamentos.domain.Pagamento;
 
 @Repository
 public interface PagamentoRepository extends JpaRepository<Pagamento, UUID> {
-    
 }

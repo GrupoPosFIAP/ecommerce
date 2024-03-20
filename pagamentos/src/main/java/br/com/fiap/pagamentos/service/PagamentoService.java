@@ -1,15 +1,10 @@
 package br.com.fiap.pagamentos.service;
 
-import static java.util.stream.Collectors.toList;
-
-import java.util.List;
 import java.util.UUID;
 
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.fiap.pagamentos.domain.Pagamento;
 import br.com.fiap.pagamentos.dto.PagamentoDto;
 import br.com.fiap.pagamentos.enumeration.StatusPagamento;
 import br.com.fiap.pagamentos.mapping.PagamentoMapper;
@@ -48,16 +43,5 @@ public class PagamentoService {
         log.info("Pagamento encontrado:", entity.getId());
 
         return mapper.toDto(entity);
-    }
-
-    public List<PagamentoDto> search(PagamentoDto dto) {
-        var entity = mapper.toEntity(dto);
-        Example<Pagamento> example = Example.of(entity);
-
-        return repository
-            .findAll(example)
-            .stream()
-            .map(mapper::toDto)
-            .collect(toList());
     }
 }

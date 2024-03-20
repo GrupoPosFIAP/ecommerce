@@ -4,10 +4,12 @@ server:
 
 spring:
   jpa:
+    hibernate:
+      ddl-auto: create-drop
     properties: 
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-      url: ${DATABASE_URL}
-      username: ${DATABASE_USER}
-      password: ${DATABASE_PASS}
+      url: jdbc:postgresql://localhost:5432/ecommerce
+      username: postgres
+      password: 1234
