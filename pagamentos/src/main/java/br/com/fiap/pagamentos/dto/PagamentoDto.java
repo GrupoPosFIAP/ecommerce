@@ -5,15 +5,25 @@ import java.time.LocalDateTime;
 
 import br.com.fiap.pagamentos.enumeration.FormaPagamento;
 import br.com.fiap.pagamentos.enumeration.StatusPagamento;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public record PagamentoDto(
-    String cartId,
-    StatusPagamento statusPagamento,
-    FormaPagamento formaPagamento,
-    BigDecimal value,
-    LocalDateTime timestamp,
-    String pagadorNome,
-    String pagadorDoc,
-    String password,
-    String paymentData
-) {}
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class PagamentoDto {
+    private String cartId;
+    private StatusPagamento statusPagamento;
+    private FormaPagamento formaPagamento;
+    private BigDecimal value;
+    private LocalDateTime timestamp;
+    private String pagadorNome;
+    private String pagadorDoc;
+    private String password;
+    private String paymentData;
+}

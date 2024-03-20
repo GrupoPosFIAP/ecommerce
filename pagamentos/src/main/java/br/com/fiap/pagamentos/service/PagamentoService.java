@@ -1,20 +1,21 @@
 package br.com.fiap.pagamentos.service;
 
-import java.util.UUID;
+import static java.util.stream.Collectors.toList;
 
+import java.util.List;
+
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.fiap.pagamentos.domain.Pagamento;
 import br.com.fiap.pagamentos.dto.PagamentoDto;
 import br.com.fiap.pagamentos.enumeration.StatusPagamento;
 import br.com.fiap.pagamentos.mapping.PagamentoMapper;
 import br.com.fiap.pagamentos.repository.PagamentoRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
 @Data
-@Slf4j
 @Service
 @Transactional
 public class PagamentoService {
@@ -36,12 +37,11 @@ public class PagamentoService {
         return mapper.toDto(entity);
     }
 
-    public PagamentoDto findById(UUID id) {
-        var entity = repository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Payment not found"));
-
-        log.info("Pagamento encontrado:", entity.getId());
-
-        return mapper.toDto(entity);
+    public List<PagamentoDto> search(Specification<Pagamento> spec) {
+        
+        return repository.findAll(spec)
+            .stream()
+            .map(mapper::toDto)
+            .collect(toList());
     }
 }
