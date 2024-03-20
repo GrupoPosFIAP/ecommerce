@@ -3,6 +3,8 @@ server:
   port: 8080
 
 spring:
+  application:
+    name: pagamentos-service
   jpa:
     hibernate:
       ddl-auto: create-drop

@@ -1,8 +1,8 @@
 build-app:
-	docker build -p 8080:8080 -t pagamentos .
+	docker build -t pagamentos .
 
-build-database:
-	docker build -p 27017:27017 -t mongodb-pagamentos -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=pass mongodb:latest
+run-database:
+	docker run --name pagamentos-postgresql -d -e POSTGRES_PASSWORD=1234 -e POSTGRES_USER=postgres -e POSTGRES_DB=ecommerce postgres
 
 up-env:
-	docker compose up
+	docker-compose up

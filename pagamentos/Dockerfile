@@ -1,8 +1,8 @@
-FROM openjdk:11-jdk-slim
+FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY target/pagamento0.0.1-SNAPSHOT.jar /app/app.jar
+COPY target/pagamentos-0.0.1-SNAPSHOT.jar /app/app.jar
 
 EXPOSE 8080
 
