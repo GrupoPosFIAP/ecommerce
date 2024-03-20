@@ -1,6 +1,8 @@
 package br.com.fiap.carrinho.controler;
 
+import br.com.fiap.rest.configuration.api.domain.usuario.Usuario;
 import br.com.fiap.rest.configuration.api.security.annotations.AuthenticationRequired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,8 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class CarrinhoController {
 
     @GetMapping
-    public String consultar() {
-        return "Consulta de carrinho";
+    @AuthenticationRequired
+    public String consultar(@AuthenticationPrincipal Usuario usuario) {
+        return "Consulta de carrinho" + usuario.getUsername();
     }
 
     @GetMapping("/adicionar")
