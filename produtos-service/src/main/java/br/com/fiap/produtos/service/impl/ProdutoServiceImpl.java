@@ -4,11 +4,11 @@ import br.com.fiap.produtos.domain.Produto;
 import br.com.fiap.produtos.dto.ProdutoDTO;
 import br.com.fiap.produtos.repository.ProdutoRepository;
 import br.com.fiap.produtos.service.ProdutoService;
+import br.com.fiap.rest.configuration.api.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,7 +22,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
         // Converter DTO para entidade
         Produto produto = new Produto();
-        produto.setNome(    dto.getNome());
+        produto.setNome(dto.getNome());
         produto.setDescricao(dto.getDescricao());
         produto.setQuantidadeEstoque(dto.getQuantidadeEstoque());
         produto.setValor(dto.getValor());
@@ -40,8 +40,9 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
-    public Optional<ProdutoDTO> findById(String id) {
-        return produtoRepository.findById(id).map(this::toDTO);
+    public ProdutoDTO findById(String id) {
+        Produto produto = produtoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Produto inexistente."));
+        return toDTO(produto);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
         // Verificar se produto existe
         Produto produtoAlterado = produtoRepository.findById(id)
-                        .orElseThrow(() -> new RuntimeException("Produto inexistente."));
+                        .orElseThrow(() -> new EntityNotFoundException("Produto inexistente."));
 
         // Atualizar campos no DTO
         produtoAlterado.setNome(dto.getNome());

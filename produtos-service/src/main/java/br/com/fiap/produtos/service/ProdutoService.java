@@ -10,7 +10,7 @@ public interface ProdutoService {
 
     ProdutoDTO save(ProdutoDTO dto);
 
-    Optional<ProdutoDTO> findById(String id);
+    ProdutoDTO findById(String id);
 
     List<ProdutoDTO> findAll();
 

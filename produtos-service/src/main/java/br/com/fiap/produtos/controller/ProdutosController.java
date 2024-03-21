@@ -26,7 +26,7 @@ public class ProdutosController {
 
 
     @GetMapping("/{id}")
-    public Optional<ProdutoDTO> findById(@PathVariable("id") String id) {
+    public ProdutoDTO findById(@PathVariable("id") String id) {
         return this.produtoService.findById(id);
     }
 
