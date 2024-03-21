@@ -6,6 +6,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpStatusCodeException;
 
 
 @RestControllerAdvice
@@ -14,6 +15,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<GenericMessage> handleGenericExceptions(Exception exception) {
         return ResponseEntity.internalServerError().body(new GenericMessage());
+    }
+
+    @ExceptionHandler(value = HttpStatusCodeException.class)
+    public ResponseEntity<GenericMessage> handleHttpStatusCodeException(HttpStatusCodeException exception) {
+        return ResponseEntity
+                .status(exception.getStatusCode())
+                .body(new GenericMessage(exception.getStatusCode().toString(), exception.getStatusText()));
     }
 
     @ExceptionHandler(value = InvalidAuthenticationException.class)
