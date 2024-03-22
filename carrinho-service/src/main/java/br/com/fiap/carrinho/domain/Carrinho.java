@@ -1,5 +1,6 @@
 package br.com.fiap.carrinho.domain;
 
+import br.com.fiap.carrinho.dto.ProdutoCarrinhoDTO;
 import br.com.fiap.carrinho.enums.Status;
 import br.com.fiap.produtos.domain.Produto;
 import lombok.*;
@@ -23,13 +24,13 @@ public class Carrinho {
 
     private String userId;
 
-    private List<Produto> produtos;
+    private List<ProdutoCarrinhoDTO> produtos;
 
     private BigDecimal valorTotal;
 
     private Status status;
 
-    public void addProduto(Produto produto) {
+    public void addProduto(ProdutoCarrinhoDTO produto) {
         this.produtos.add(produto);
     }
 }
