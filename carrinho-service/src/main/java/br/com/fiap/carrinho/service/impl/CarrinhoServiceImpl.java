@@ -1,14 +1,18 @@
 package br.com.fiap.carrinho.service.impl;
+
+import br.com.fiap.carrinho.domain.Carrinho;
 import br.com.fiap.carrinho.dto.CarrinhoDTO;
 import br.com.fiap.carrinho.enums.Status;
 import br.com.fiap.carrinho.repository.CarrinhoRepository;
 import br.com.fiap.carrinho.service.CarrinhoService;
 import br.com.fiap.produtos.dto.ProdutoDTO;
+import br.com.fiap.rest.configuration.api.domain.usuario.Usuario;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,30 +23,32 @@ public class CarrinhoServiceImpl implements CarrinhoService {
     private final CarrinhoRepository carrinhoRepository;
 
     @Override
-    public CarrinhoDTO save(CarrinhoDTO dto) {
+    public CarrinhoDTO save(Usuario usuario) {
         Carrinho carrinho = new Carrinho();
-        carrinho.setStatus(String.valueOf(dto.getStatus()));
+        carrinho.setUserId(usuario.getId());
+        carrinho.setProdutos(new ArrayList<>());
+        carrinho.setValorTotal(BigDecimal.ZERO);
+        carrinho.setStatus(Status.VAZIO);
         return toDTO(carrinhoRepository.save(carrinho));
     }
 
     @Override
     public List<CarrinhoDTO> findAll() {
-        return  carrinhoRepository.findAll().stream()
+        return carrinhoRepository.findAll().stream()
                 .map(this::toDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public CarrinhoDTO findByUserId(String id) {
-        Carrinho carrinho = (Carrinho) carrinhoRepository.findByUserId(id).orElseThrow(() -> new RuntimeException("Carrinho não encontrado."));
-        verifyStatusCarrinho(id);
+    public CarrinhoDTO findById(String id) {
+        Carrinho carrinho = carrinhoRepository.findById(id).orElseThrow(() -> new RuntimeException("Carrinho não encontrado."));
         return toDTO(carrinho);
     }
 
     @Override
     public CarrinhoDTO update(String id, CarrinhoDTO dto) {
         Carrinho carrinho = carrinhoRepository.findById(id).orElseThrow(() -> new RuntimeException("Carrinho não encontrado."));
-        carrinho.setStatus(String.valueOf(dto.getStatus()));
+        carrinho.setStatus(dto.getStatus());
         return toDTO(carrinhoRepository.save(carrinho));
     }
 
@@ -54,24 +60,21 @@ public class CarrinhoServiceImpl implements CarrinhoService {
     @Override
     public Carrinho verifyStatusCarrinho(String id) {
         Carrinho carrinho = carrinhoRepository.findById(id).orElseThrow(() -> new RuntimeException("Carrinho não encontrado."));
-        if (carrinho.getStatus().equals("FINALIZADO")) {
+        if (Status.FINALIZADO.equals(carrinho.getStatus()))
             throw new RuntimeException("Carrinho já finalizado.");
-        }
         return carrinho;
     }
 
     @Override
-    public CarrinhoDTO addProduct(String id, List<ProdutoDTO> products) {
+    public CarrinhoDTO addProduct(ProdutoDTO product, String id) {
         Carrinho carrinho = verifyStatusCarrinho(id);
-        carrinho.setNomeProduto(products);
-        carrinho.setStatus("EM_ANDAMENTO");
-        double sum = 0.0;
-        for (ProdutoDTO product : products) {
-            @Min(value = 0, message = "Valor não pode ser negativo.")
-            BigDecimal valor = product.getValor();
-            sum += valor;
-        }
-        carrinho.setValorTotal(sum;
+        carrinho.addProduto(product.toEntity());
+        carrinho.setStatus(Status.EM_ANDAMENTO);
+        BigDecimal sum = BigDecimal.ZERO;
+        @Min(value = 0, message = "Valor não pode ser negativo.")
+        BigDecimal valor = product.getValor();
+        sum = sum.add(valor);
+        carrinho.setValorTotal(sum);
         return toDTO(carrinhoRepository.save(carrinho));
     }
 
@@ -79,7 +82,7 @@ public class CarrinhoServiceImpl implements CarrinhoService {
     private CarrinhoDTO toDTO(Carrinho carrinho) {
         return CarrinhoDTO.builder()
                 .id(carrinho.getId())
-                .status(Status.valueOf(carrinho.getStatus()))
+                .status(carrinho.getStatus())
                 .build();
     }
 }

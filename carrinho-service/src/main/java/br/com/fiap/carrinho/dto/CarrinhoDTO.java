@@ -1,7 +1,6 @@
 package br.com.fiap.carrinho.dto;
 
 import br.com.fiap.carrinho.enums.Status;
-import br.com.fiap.produtos.dto.ProdutoDTO;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
@@ -20,20 +19,10 @@ public class CarrinhoDTO {
 
     private String id;
 
-    private String userId;
-
-    private List<ProdutoDTO> nomeProduto;
+    private List<ProdutoCarrinhoDTO> produtos;
 
     private BigDecimal valorTotal;
 
-    private BigDecimal valorFinal;
-
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    private String dataCriacao;
-
-    private String dataAtualizacao;
-
-    private String dataFinalizacao;
 }
