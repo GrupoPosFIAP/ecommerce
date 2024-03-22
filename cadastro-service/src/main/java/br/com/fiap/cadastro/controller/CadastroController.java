@@ -25,5 +25,4 @@ public class CadastroController {
     public List<Usuario> consultarUsuarios() {
         return this.cadastroService.consultarUsuarios();
     }
-
 }

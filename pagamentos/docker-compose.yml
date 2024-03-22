@@ -1,0 +1,28 @@
+version: "1.0"
+services:
+  mongo-auth:
+    image: mongo
+    # ports:
+    #   - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+      - MONGO_INITDB_DATABASE=storeDb
+  ecommerce-postgresql:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: ecommerce
+    ports:
+      - "5432:5432"
+  pagamentos:
+    image: pagamentos
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ecommerce-postgresql
+      - mongo-auth
+    environment:
+      - spring.datasource.url=jdbc:postgresql://ecommerce-postgresql:5432/ecommerce
+      - mongodb.host=mongo-auth
