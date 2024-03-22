@@ -29,11 +29,13 @@ public class CarrinhoController {
     }
 
     @PutMapping("/adicionar/{id}")
+    @AuthenticationRequired
     public void adicionarItem(@RequestBody ProdutoDTO produto, @PathVariable("id") String id){
         this.carrinhoService.addProduct(produto, id);
     }
 
     @PutMapping("/editar/{id}")
+    @AuthenticationRequired
     public CarrinhoDTO editarListaItens(@PathVariable("id") String id, @RequestBody CarrinhoDTO carrinhoDTO) {
         return carrinhoService.update(id, carrinhoDTO);
     }
