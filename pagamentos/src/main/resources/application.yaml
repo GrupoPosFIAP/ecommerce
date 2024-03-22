@@ -1,0 +1,17 @@
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: pagamentos-service
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties: 
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+      url: jdbc:postgresql://localhost:5432/ecommerce
+      username: postgres
+      password: 1234
