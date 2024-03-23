@@ -2,6 +2,8 @@ package br.com.fiap.pagamentos.controller;
 
 import java.util.List;
 
+import br.com.fiap.pagamentos.rest.ProdutoRestClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +25,7 @@ import lombok.Data;
 public class PagamentoController {
 
     private final PagamentoService pagamentoService;
-    
+
     @PostMapping
     @AuthenticationRequired
     public PagamentoDto executePayment(@RequestBody PagamentoDto paymentDto) {

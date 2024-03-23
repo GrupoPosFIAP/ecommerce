@@ -4,6 +4,8 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
+import br.com.fiap.pagamentos.rest.ProdutoRestClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +28,14 @@ public class PagamentoService {
 
     private final PaymentEmulator paymentEmulator;
 
+    private final ProdutoRestClient produtoRestClient;
+
     public PagamentoDto executePayment(PagamentoDto paymentDto) {
         StatusPagamento paymentStatus = paymentEmulator.executePayment(paymentDto);
+
+        if(StatusPagamento.CONFIRMED.equals(paymentStatus)) {
+            produtoRestClient.criarCarrinho();
+        }
         
         var payment = mapper.toEntity(paymentDto);
         payment.setStatusPagamento(paymentStatus);
