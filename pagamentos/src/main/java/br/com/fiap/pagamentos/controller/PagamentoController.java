@@ -1,23 +1,16 @@
 package br.com.fiap.pagamentos.controller;
 
-import java.util.List;
-
-import br.com.fiap.pagamentos.rest.ProdutoRestClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.turkraft.springfilter.boot.Filter;
-
 import br.com.fiap.pagamentos.domain.Pagamento;
 import br.com.fiap.pagamentos.dto.PagamentoDto;
 import br.com.fiap.pagamentos.service.PagamentoService;
 import br.com.fiap.rest.configuration.api.security.annotations.AuthenticationRequired;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.turkraft.springfilter.boot.Filter;
 import lombok.Data;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Data
 @RestController
@@ -28,8 +21,8 @@ public class PagamentoController {
 
     @PostMapping
     @AuthenticationRequired
-    public PagamentoDto executePayment(@RequestBody PagamentoDto paymentDto) {
-        return pagamentoService.executePayment(paymentDto);
+    public PagamentoDto executePayment(@RequestBody PagamentoDto paymentDto, @RequestHeader("Authorization") String auth) throws JsonProcessingException {
+        return pagamentoService.executePayment(paymentDto, auth);
     }
 
     /*
