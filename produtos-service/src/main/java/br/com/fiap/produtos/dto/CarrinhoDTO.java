@@ -25,4 +25,14 @@ public class CarrinhoDTO {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    public BigDecimal getValorTotal() {
+        BigDecimal valorTotal = BigDecimal.ZERO;
+        for(ProdutoCarrinhoDTO produtoCarrinhoDTO : produtos) {
+            BigDecimal quantidadeProdutos = BigDecimal.valueOf(produtoCarrinhoDTO.getQuantidade());
+            BigDecimal valorProduto = produtoCarrinhoDTO.getValor();
+            valorTotal = valorTotal.add(valorProduto.multiply(quantidadeProdutos));
+        }
+        return valorTotal;
+    }
 }
