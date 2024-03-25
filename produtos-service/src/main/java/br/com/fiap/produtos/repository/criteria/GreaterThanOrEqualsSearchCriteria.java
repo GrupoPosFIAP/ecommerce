@@ -1,0 +1,18 @@
+package br.com.fiap.produtos.repository.criteria;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+
+public class GreaterThanOrEqualsSearchCriteria extends SearchCriteria {
+
+    public GreaterThanOrEqualsSearchCriteria(String key, Object value) {
+        super(key, ">", value);
+    }
+
+    @Override
+    Predicate build(CriteriaBuilder builder, Predicate predicate, Root<?> root) {
+        return builder.and(predicate, builder.greaterThanOrEqualTo(root.get(this.getKey()), this.getValue().toString()));
+    }
+
+}
