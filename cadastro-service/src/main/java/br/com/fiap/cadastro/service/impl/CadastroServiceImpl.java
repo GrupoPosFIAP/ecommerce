@@ -1,5 +1,6 @@
 package br.com.fiap.cadastro.service.impl;
 
+import br.com.fiap.cadastro.domain.usuario.Roles;
 import br.com.fiap.cadastro.domain.usuario.Usuario;
 import br.com.fiap.cadastro.domain.usuario.dto.CadastroDTO;
 import br.com.fiap.cadastro.repository.CadastroRepository;
@@ -26,5 +27,14 @@ public class CadastroServiceImpl implements CadastroService {
     @Override
     public List<Usuario> consultarUsuarios() {
         return cadastroRepository.findAll();
+    }
+
+    @Override
+    public void promover(String id) {
+        Usuario usuarioEncontrado = this.cadastroRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+
+        usuarioEncontrado.setRole(Roles.ADMIN);
+        this.cadastroRepository.save(usuarioEncontrado);
     }
 }
