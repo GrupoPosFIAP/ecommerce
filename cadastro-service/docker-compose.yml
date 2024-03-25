@@ -1,4 +1,4 @@
-version: "1.0"
+version: "3.1"
 services:
   mongo-auth:
     image: mongo
@@ -61,3 +61,17 @@ services:
     environment:
       - mongodb.host=mongo-auth
       - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka
+
+  pagamentos:
+    image: pradoo159/pagamentos:1.0
+    depends_on:
+      - mongo-auth
+      - eureka-server
+      - gateway
+      - ecommerce-postgresql
+      - produto
+    environment:
+      - mongodb.host=mongo-auth
+      - eureka.client.serviceUrl.defaultZone=http://eureka-server:8761/eureka
+      - gateway.host=http://gateway:8082
+      - spring.datasource.url=jdbc:postgresql://ecommerce-postgresql:5432/ecommerce

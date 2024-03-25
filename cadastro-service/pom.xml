@@ -71,7 +71,10 @@
 			<artifactId>spring-cloud-starter-config</artifactId>
 			<version>4.0.3</version>
 		</dependency>
-
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-codec-http</artifactId>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

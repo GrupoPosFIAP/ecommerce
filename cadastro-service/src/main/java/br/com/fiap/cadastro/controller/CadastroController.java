@@ -5,6 +5,7 @@ import br.com.fiap.cadastro.domain.usuario.dto.CadastroDTO;
 import br.com.fiap.cadastro.service.CadastroService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,5 +25,10 @@ public class CadastroController {
     @GetMapping
     public List<Usuario> consultarUsuarios() {
         return this.cadastroService.consultarUsuarios();
+    }
+
+    @PostMapping("/promover/{id}")
+    public void promover(@PathVariable String id) {
+        this.cadastroService.promover(id);
     }
 }

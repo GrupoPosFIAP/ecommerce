@@ -1,5 +1,6 @@
 package br.com.fiap.produtos.dto;
 
+import br.com.fiap.produtos.domain.Produto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -31,4 +32,15 @@ public class ProdutoDTO {
     private BigDecimal valor;
 
     private List<String> imagens;
+
+    public Produto toEntity() {
+        return Produto.builder()
+                .id(this.id)
+                .nome(this.nome)
+                .descricao(this.descricao)
+                .quantidadeEstoque(this.quantidadeEstoque)
+                .valor(this.valor)
+                .imagens(this.imagens)
+                .build();
+    }
 }

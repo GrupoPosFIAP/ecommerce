@@ -13,4 +13,5 @@ public interface CadastroService {
 
     List<Usuario> consultarUsuarios();
 
+    void promover(String id);
 }
