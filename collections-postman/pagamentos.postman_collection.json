@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "e9cd4092-fc53-4371-9e18-6cfb0a798143",
+		"name": "pagamentos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12308262"
+	},
+	"item": [
+		{
+			"name": "Localizar pagamento",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFiYzEyMzQiLCJleHAiOjE3MTEwODY4OTB9.hepjatAes6fVlEfs1W9Lf7AF0xyEyfLpwn1Acb3GBQ0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8082/pagamentos-service/pagamentos/search?id=123",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"pagamentos-service",
+						"pagamentos",
+						"search"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Realizar pagamento",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImFiYzEyMzQiLCJleHAiOjE3MTEwODY4OTB9.hepjatAes6fVlEfs1W9Lf7AF0xyEyfLpwn1Acb3GBQ0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"formaPagamento\": \"PIX\",\r\n    \"value\": 100.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8082/pagamentos-service/pagamentos",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"pagamentos-service",
+						"pagamentos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

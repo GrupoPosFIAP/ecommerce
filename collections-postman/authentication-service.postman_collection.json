@@ -1,0 +1,42 @@
+{
+	"info": {
+		"_postman_id": "6544722d-1c6f-44db-8517-4c03c0a14cd2",
+		"name": "authentication-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12308262"
+	},
+	"item": [
+		{
+			"name": "autenticar usuario",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"usuario\",\r\n    \"password\": \"senha\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/autenticacao-service/authentication",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"autenticacao-service",
+						"authentication"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -33,25 +33,4 @@ public class AuthenticationController {
         return new AuthenticationResponseDTO(token);
     }
 
-    @GetMapping
-    @AuthenticationRequired
-    public String pathAdmin() {
-        return "Path autenticado ADMIN";
-    }
-
-    @GetMapping("/qualquer")
-    @AuthenticationRequired
-    public String pathQualquer() { return "abc";}
-
-
-    @GetMapping("/default")
-    public String pathUser() {
-        return "Path autenticado USER";
-    }
-
-    @GetMapping("/porta")
-    public String retornaPorta(@Value("${local.server.port}") String porta) {
-        return String.format("Requisição respondida pela instância executando na porta %s", porta);
-    }
-
 }
