@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "7217bf93-509d-4bd8-beda-887e5791845a",
+		"name": "Produtos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27397706"
+	},
+	"item": [
+		{
+			"name": "Criar Produto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImNlc2FyIiwiZXhwIjoxNzExNDI3MzQyfQ.pjv1v9ktD-uhn3A1ARXK6nm5PKcj0dnKDbP7SqtOMJo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"teclado\",\r\n    \"descricao\": \"Teclado wirelless\",\r\n    \"quantidadeEstoque\": 10,\r\n    \"valor\": 75.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/produtos-service/produto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"produtos-service",
+						"produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Produto por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/produtos-service/produto/:idProduto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"produtos-service",
+						"produto",
+						":idProduto"
+					],
+					"variable": [
+						{
+							"key": "idProduto",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Produtos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/produtos-service/produto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"produtos-service",
+						"produto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar Produtos",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/produtos-service/produto/:idProduto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"produtos-service",
+						"produto",
+						":idProduto"
+					],
+					"variable": [
+						{
+							"key": "idProduto",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar Produtos",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8082/produtos-service/produto/:idProduto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"produtos-service",
+						"produto",
+						":idProduto"
+					],
+					"variable": [
+						{
+							"key": "idProduto",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
